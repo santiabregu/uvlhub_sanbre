@@ -2,10 +2,9 @@ import pytest
 from unittest.mock import patch
 
 from app import db
-from app.modules.conftest import login, logout
 from app.modules.auth.models import User
 from app.modules.profile.models import UserProfile
-from flask_login import current_user
+
 
 @pytest.fixture(scope="module")
 def test_client(test_client):
@@ -47,6 +46,7 @@ def test_get_notepad(test_client):
             assert response.status_code == 200, "The notepad detail page could not be accessed."
             assert b'Notepad2' in response.data, "The notepad title is not present on the page."
 
+
 def test_edit_notepad(test_client):
     """
     Test editing a notepad via POST request.
@@ -61,6 +61,7 @@ def test_edit_notepad(test_client):
                 'body': 'This is the edited body of notepad3.'
             }, follow_redirects=True)
             assert response.status_code == 200, "The notepad could not be edited."
+
 
 def test_delete_notepad(test_client):
     """
